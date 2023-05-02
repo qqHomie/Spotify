@@ -19,13 +19,13 @@ from django.urls import path
 from spotify.views import (
     ArtistList, ArtistDetail, AlbumList, AlbumDetail,
     SongList, SongDetail, PlaylistList, PlaylistDetail, UserSongList, UserSongDetail,
-    UserAlbumList, UserAlbumDetail, UserArtistList, UserArtistDetail, UserView
+    UserAlbumList, UserAlbumDetail, UserArtistList, UserArtistDetail, UserView, UserDetail
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/users/', UserView.as_view(), name='user-list'),
-    # path('api/v1/users/<int:pk>/', UserDetail.as_view(), name='user-detail'),
+    path('api/v1/users/<int:pk>/', UserDetail.as_view(), name='user-detail'),
     path('api/v1/artists/', ArtistList.as_view(), name='artist-list'),
     path('api/v1/artists/<int:pk>/', ArtistDetail.as_view(), name='artist-detail'),
     path('api/v1/albums/', AlbumList.as_view(), name='album-list'),

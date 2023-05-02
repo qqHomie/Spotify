@@ -10,7 +10,7 @@ from .serializers import (UserSerializer, ArtistSerializer, AlbumSerializer,
 
 
 
-class UserView(generics.RetrieveUpdateAPIView):
+class UserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -37,6 +37,9 @@ class UserView(generics.RetrieveUpdateAPIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class ArtistList(generics.ListCreateAPIView):
     queryset = Artist.objects.all()
