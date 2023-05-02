@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -10,10 +11,13 @@ from .serializers import (UserSerializer, ArtistSerializer, AlbumSerializer,
 
 
 class UserView(generics.RetrieveUpdateAPIView):
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def get_object(self):
-        return self.request.user
+    def get(self, request, *args, **kwargs):
+        users = self.get_queryset()
+        serializer = self.get_serializer(users, many=True)
+        return Response(serializer.data)
 
     def put(self, request, *args, **kwargs):
         user = self.get_object()
