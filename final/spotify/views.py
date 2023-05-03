@@ -14,12 +14,12 @@ class UserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         users = self.get_queryset()
         serializer = self.get_serializer(users, many=True)
         return Response(serializer.data)
 
-    def put(self, request, *args, **kwargs):
+    def put(self, request):
         user = self.get_object()
         serializer = self.get_serializer(user, data=request.data)
         if serializer.is_valid():
@@ -28,7 +28,7 @@ class UserView(generics.ListCreateAPIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def patch(self, request, *args, **kwargs):
+    def patch(self, request):
         user = self.get_object()
         serializer = self.get_serializer(user, data=request.data, partial=True)
         if serializer.is_valid():
